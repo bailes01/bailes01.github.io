@@ -5,12 +5,14 @@ const ctx = canvas.getContext("2d");
 const width = canvas.width = window.innerWidth;
 const height = canvas.height = window.innerHeight;
 var frame = 0;
+var lastFrame = 0;
 var scale = 1;
+var meter = 64;
 var still = true;
-var grav = 2;
+var grav = 9.8;
 let bg = new Image();
 var jump = false;
-
+var frameToRender = 0;
 bg.src = './images/bg.png';
 
     
@@ -21,6 +23,7 @@ class Player{
         this.vely = 0;
         this.img_x = 768;
         this.img_y = 384;
+        this.walkVel = 4;
         this.sections = getSections(768, 384 ,6,3);
         this.now_sections = this.sections['right'];
         this.x_sections = 6;
@@ -32,7 +35,7 @@ class Player{
         this.img = new Image();
         this.img.src = './images/endy2.png';
         
-        this.y = height-this.section_size - 500;
+        this.y = (height-this.section_size);
         this.img.onload = function() {
             loop();
         };
@@ -41,18 +44,17 @@ class Player{
         var section = this.section;
         ctx.drawImage(this.img, section.x, section.y, section.xs, section.ys,this.x, this.y,  section.xs * scale, section.ys * scale);
         // ctx.drawImage(this.img, 100,100);
-        frame += 1;
-        frame %= 8;
+        
+        
+        
+
     }
 
-    update(){
-        if (Key.isDown(Key.UP)) {
-            this.moveUp();
-        }
+    update(sec){
         if (Key.isDown(Key.LEFT)) {
             this.now_sections = this.sections["left"];
             this.section = this.now_sections[frame];
-            this.moveLeft();
+            this.moveLeft(sec);
         }
         if (Key.isDown(Key.DOWN)) {
             this.moveDown();
@@ -61,31 +63,42 @@ class Player{
             this.now_sections = this.sections["right"];
             this.section = this.now_sections[frame];
             // this.section = this.sections["right"][frame];
-            this.moveRight();
+            this.moveRight(sec);
         }
         if(!(Key.isDown(Key.UP) || Key.isDown(Key.LEFT) || Key.isDown(Key.DOWN) || Key.isDown(Key.RIGHT))){
             this.section = this.now_sections[8];
         }
+        if (Key.isDown(Key.RIGHT) && Key.isDown(Key.LEFT)){
+            this.section = this.now_sections[8];
+        }
         if(this.y + this.section_size < height){
             this.section = this.now_sections[8];
-            this.fall();
+            this.fall(sec);
+        }else{
+            if (Key.isDown(Key.SPACE)) {
+                this.jump(sec);
+            }
         }
     }
-    fall(){
-        this.vely += grav;
-        if (this.y + this.vely + this.section_size > height){
+    fall(sec){
+        this.vely += grav *  sec;
+        if (this.y + this.vely* sec * meter + this.section_size > height){
             this.y = height - this.section_size;
         }else{
-            this.y += this.vely;
+            this.y += this.vely * sec * meter;
         }
         
     }
-    moveRight(){
-        this.x +=8;
+    jump(sec){
+        this.vely = -5;
+        this.y += this.vely* sec * meter;
+    }
+    moveRight(sec){
+        this.x +=this.walkVel * sec * meter;
     }
 
-    moveLeft(){
-        this.x -=8;
+    moveLeft(sec){
+        this.x -=this.walkVel * sec * meter;
     }
     
     
@@ -95,7 +108,7 @@ var Key = {
     _pressed: {},
   
     LEFT: 65,
-    // UP: 87,
+    SPACE: 32,
     RIGHT:  68,
     // d
     
@@ -168,17 +181,28 @@ function drawBg(img_size){
 }
 
 
+
 function loop() {
     
     drawBg(32);
-    player.update();
+    var thisLoop = new Date();
+    var sec =  (thisLoop - lastLoop)/1000;
+    var framesec = (thisLoop-lastFrame)/1000;
+    if (framesec > 1/(player.walkVel*8)){
+        player.update(framesec);
+        frame +=1;
+        lastFrame = thisLoop;
+    }
+    frame %= 8;
+    lastLoop = thisLoop;
+    
     player.draw();
     
     setTimeout(function() {
         requestAnimationFrame(loop);
-    }, 1000/10);
+    }, 1000/60);
 }
-
+var lastLoop = new Date();
 var player = new Player(100,100);
 window.addEventListener('keyup', function(event) { Key.onKeyup(event); }, false);
 window.addEventListener('keydown', function(event) { Key.onKeydown(event); }, false);
