@@ -66,9 +66,20 @@ class Player{
         if(!(Key.isDown(Key.UP) || Key.isDown(Key.LEFT) || Key.isDown(Key.DOWN) || Key.isDown(Key.RIGHT))){
             this.section = this.now_sections[8];
         }
-
+        if(this.y + this.section_size < height){
+            this.section = this.now_sections[8];
+            this.fall();
+        }
     }
-
+    fall(){
+        this.vely += grav;
+        if (this.y + this.vely + this.section_size > height){
+            this.y = height - this.section_size;
+        }else{
+            this.y += this.vely;
+        }
+        
+    }
     moveRight(){
         this.x +=8;
     }
