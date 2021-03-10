@@ -125,16 +125,6 @@ var Key = {
     }
   };
 
-// Player.prototype.update = function(){
-//     var section = this.sections[frame];
-    
-
-
-//     frame += 1;
-//     frame %= 8;
-// }
-
-
 
     
 
