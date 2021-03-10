@@ -23,7 +23,7 @@ class Player{
         this.vely = 0;
         this.img_x = 768;
         this.img_y = 384;
-        this.walkVel = 4;
+        this.walkVel = 3;
         this.sections = getSections(768, 384 ,6,3);
         this.now_sections = this.sections['right'];
         this.x_sections = 6;
@@ -90,7 +90,7 @@ class Player{
         
     }
     jump(sec){
-        this.vely = -5;
+        this.vely = -4.55;
         this.y += this.vely* sec * meter;
     }
     moveRight(sec){
@@ -208,33 +208,4 @@ window.addEventListener('keyup', function(event) { Key.onKeyup(event); }, false)
 window.addEventListener('keydown', function(event) { Key.onKeydown(event); }, false);
 
 
-// let spots = [];
 
-// function Spot(x, y, color){
-//     this.init_x = x;
-//     this.init_y = y;
-//     this.x = x;
-//     this.y = y;
-//     this.color = color;
-// }
-
-// function newSpot(init_x, init_y){
-//     var color = "rgb("+random(10,200)+","+random(10,200)+","+random(10,200)+")";
-//     console.log(color);
-//     let spot = new Spot(init_x, init_y, color);
-//     spots.push(spot);
-// }
-
-// Spot.prototype.draw = function(){
-//     ctx.beginPath();
-//     ctx.fillStyle = this.color;
-//     ctx.arc(this.x,this.y, 2, 0, 2 * Math.PI);
-//     ctx.fill();
-// }
-
-// Spot.prototype.update = function(){
-//     var init_x = this.init_x / width;
-//     var init_y = this.init_y / height;
-//     this.x = init_x**2 - init_x*timeDiff + init_y*timeDiff - init_x;
-//     this.y = init_y**2 - timeDiff**2 - init_x*init_y, init_y*timeDiff - init_y;
-// }
