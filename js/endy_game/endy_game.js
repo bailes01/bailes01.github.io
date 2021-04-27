@@ -1,5 +1,3 @@
-
-
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 const width = canvas.width = window.innerWidth;
@@ -13,7 +11,7 @@ var grav = 9.8;
 let bg = new Image();
 var jump = false;
 var frameToRender = 0;
-bg.src = './images/bg.png';
+bg.src = '../resources/endy_game/images/bg.png';
 
     
 
@@ -33,7 +31,7 @@ class Player{
         
         this.moving = "right";
         this.img = new Image();
-        this.img.src = './images/endy2.png';
+        this.img.src = '../resources/endy_game/images/spritesheet.png';
         
         this.y = (height-this.section_size);
         this.img.onload = function() {
