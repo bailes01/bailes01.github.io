@@ -65,22 +65,38 @@ h1 {
   margin: 0px;
   width: 600px;
   height: 200px;
-  background: url("../resources/images/endy_hover.png") no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
+  
 }
-.card:hover {
+
+#endy-card{
   background: url("../resources/images/endy_blur.png") no-repeat;
 }
+#endy-card:hover{
+  background: url("../resources/images/endy_hover.png") no-repeat;
+}
+
+#gol-card{
+  background: url("../resources/images/gol_blur.png") no-repeat;
+}
+#gol-card:hover{
+  background: url("../resources/images/gol_hover.png") no-repeat;
+}
+
 .project-name {
   font-weight: 800;
   font-variant: small-caps;
   font-size: 60px;
   margin: 0;
+  color: #96e5ff;
+  mix-blend-mode: normal;
 }
 .card:hover > .project-name {
   color: #96e5ff;
+  mix-blend-mode: difference;
+  
 }
 a {
   text-decoration: none;
