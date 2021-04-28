@@ -65,13 +65,13 @@ h1 {
   margin: 0px;
   width: 600px;
   height: 200px;
-  background: url("../resources/home/endy_hover.png") no-repeat;
+  background: url("../resources/images/endy_hover.png") no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .card:hover {
-  background: url("../resources/home/endy_blur.png") no-repeat;
+  background: url("../resources/images/endy_blur.png") no-repeat;
 }
 .project-name {
   font-weight: 800;
