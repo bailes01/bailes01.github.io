@@ -43,15 +43,15 @@ h1 {
 
 .row {
   background: #96e5ff;
-  border: 5px dashed #8eabff;
+  border: 6px dashed #E596FF;
   border-bottom: none;
 }
 
 .row:last-child {
-  border: 5px dashed #8eabff;
+  border: 6px dashed #E596FF;
 }
 .button {
-  border: 2px solid #c072ff62;
+  border: 3px solid #c072ff62;
   background-color: #f0e7f3;
   height: 50px;
   margin: 20px 0 20px 20px;
